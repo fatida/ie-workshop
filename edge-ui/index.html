@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <title>Home Page</title>
+    <style>
+        body {
+            background-color: #090915;
+        }
+
+        .title {
+            color: #00CCCC;
+        }
+
+        .count {
+            color: white;
+            font-size: 36px;
+        }
+
+        .card {
+            background-color: #090915;
+            border: 1px solid #00CCCC;
+        }
+
+        .navbar {
+            height: 60px;
+        }
+
+        #reset-button {
+            width: 100%;
+            color: #00CCCC;
+            border-color: #00CCCC;
+        }
+
+        #reset-button:hover {
+            background-color: #00CCCC;
+            color: white;
+        }
+
+        #chart {
+            width: 450px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <div class="container">
+        <nav class="navbar">
+            <div class="container">
+                <svg style="width: 126px;  height: 20px; fill: white; " viewBox="0 0 554.8 88.3"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M549.3,3.1v16.5c-8.6-3.2-16.2-4.9-22.9-4.9c-4,0-7.1,0.7-9.5,2.1c-2.4,1.4-3.6,3.2-3.6,5.3 c0,2.8,2.7,5.2,8,7.4l15.5,7.6c12.6,6,18.8,13.9,18.8,23.9c0,8.3-3.3,14.9-10,19.8c-6.6,5-15.5,7.4-26.6,7.4 c-5.1,0-9.7-0.2-13.8-0.7c-4.1-0.4-8.8-1.3-14-2.6V67.7c9.5,3.2,18.2,4.9,26.1,4.9c9.3,0,14-2.7,14-8.2c0-2.7-1.9-4.9-5.8-6.6 l-17.3-7.4c-6.4-2.9-11.1-6.4-14.2-10.5c-3-4.2-4.6-9-4.6-14.4c0-7.6,3.2-13.8,9.6-18.5c6.4-4.6,14.9-7,25.5-7 c3.4,0,7.4,0.3,11.8,0.9C541,1.5,545.2,2.2,549.3,3.1L549.3,3.1z">
+                    </path>
+                    <path
+                        d="M60.6,3.1v16.5c-8.6-3.2-16.2-4.9-22.8-4.9c-4,0-7.1,0.7-9.5,2.1c-2.4,1.4-3.6,3.2-3.6,5.3 c0,2.8,2.7,5.2,8.1,7.4l15.5,7.6c12.5,6,18.8,13.9,18.8,23.9c0,8.3-3.3,14.9-9.9,19.8c-6.7,5-15.5,7.4-26.7,7.4 c-5.1,0-9.7-0.2-13.8-0.7c-4.1-0.4-8.7-1.3-14-2.6V67.7c9.6,3.2,18.3,4.9,26.1,4.9c9.3,0,14-2.7,14-8.2c0-2.7-1.9-4.9-5.7-6.6 l-17.3-7.4C13.4,47.5,8.7,44,5.6,39.9C2.5,35.7,1,30.9,1,25.5C1,17.8,4.2,11.7,10.6,7C17,2.3,25.5,0,36.1,0c3.5,0,7.4,0.3,11.8,0.9 C52.3,1.5,56.5,2.2,60.6,3.1z">
+                    </path>
+                    <polygon points="78.4,1.5 103.7,1.5 103.7,86.7 78.4,86.7"></polygon>
+                    <polygon
+                        points="185.3,1.5 185.3,17.3 147.7,17.3 147.7,36.2 180.3,36.2 180.3,50.4 147.7,50.4 147.7,70.2 186,70.2 186,86.7 123.3,86.7 123.3,1.5">
+                    </polygon>
+                    <polygon
+                        points="303.4,1.5 303.4,86.7 279.8,86.7 279.8,30.5 255.2,87.5 240.7,87.5 217.1,30.5 217.1,86.7 200,86.7 200,1.5 230.9,1.5 252,53.7 274,1.5">
+                    </polygon>
+                    <polygon
+                        points="384.9,1.5 384.9,17.3 347.5,17.3 347.5,36.2 380.1,36.2 380.1,50.4 347.5,50.4 347.5,70.2 385.6,70.2 385.6,86.7 322.9,86.7 322.9,1.5">
+                    </polygon>
+                    <polygon
+                        points="473.6,1.5 473.6,86.7 446.8,86.7 416.7,32.1 416.7,86.7 399.6,86.7 399.6,1.5 427.2,1.5 456.6,55.2 456.6,1.5">
+                    </polygon>
+                </svg>
+            </div>
+        </nav>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <h4 class="title">Production Quality Dashboard</h4>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 20px;">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-3">
+                <div class="card mb-3">
+                    <div class="row g-0 d-flex justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card-body">
+                                <h5 class="card-title text-center title">Bottle Produced</h5>
+                                <p class="card-text text-center count" id="bottleProduced">0
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card mb-3">
+                    <div class="row g-0 d-flex justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card-body">
+                                <h5 class="card-title text-center title">Bottle Faulty</h5>
+                                <p class="card-text text-center count" id="bottleFaulty">0
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title title text-center">Production Quality</h5>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div id="chart"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-lg" id="reset-button"
+                    onclick="resetData()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Socket.io Client
+        let socketUrl = 'http://192.168.1.103:3000';
+        let productionQualiy = 0;
+        let bottleProduced = document.getElementById('bottleProduced');
+        let bottleFaulty = document.getElementById('bottleFaulty');
+        const socket = io(socketUrl);
+        socket.on('clientdata', function (data) {
+            console.log(data);
+            bottleProduced.innerHTML = data.bottleProduced.count ? data.bottleProduced.count : bottleProduced.innerText;
+            bottleFaulty.innerHTML = data.bottleFaulty.count ? data.bottleFaulty.count : bottleFaulty.innerText;
+            productionQualiy = Math.floor(((bottleProduced.innerText - bottleFaulty.innerText) / bottleProduced.innerText) * 100)
+            chart.updateSeries([productionQualiy])
+        });
+
+        socket.on("connect", () => {
+            console.log(socket.id);
+        });
+
+        function resetData() {
+            let sure = confirm("PLC data to be cleared. Are you sure?");
+            if(sure){
+                socket.emit("reset", "reset");
+            }
+        }
+
+        let options = {
+            series: [0],
+            chart: {
+                type: 'radialBar',
+                offsetY: -20,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            plotOptions: {
+                radialBar: {
+                    startAngle: -90,
+                    endAngle: 90,
+                    track: {
+                        background: "#ffffff",
+                        strokeWidth: '97%',
+                        margin: 5, // margin is in pixels
+                        dropShadow: {
+                            enabled: true,
+                            top: 2,
+                            left: 0,
+                            color: '#999',
+                            opacity: 1,
+                            blur: 2
+                        }
+                    },
+                    dataLabels: {
+                        name: {
+                            show: false
+                        },
+                        value: {
+                            offsetY: -2,
+                            fontSize: '32px',
+                            color: '#ffffff'
+                        }
+                    }
+                }
+            },
+            grid: {
+                padding: {
+                    top: -10
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    type: 'horizontal',
+                    shadeIntensity: 0.5,
+                    gradientToColors: ['#00CCCC'],
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 100]
+                }
+            },
+            labels: ['Production Quality'],
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+version: '2.4'
+services:
+    edge-db:
+        image: mongo:latest
+        container_name: edge-db
+        ports:
+            - 27017:27017
+        mem_limit: 512mb
+        networks:
+        - proxy-redirect   
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=edge
+            - MONGO_INITDB_ROOT_PASSWORD=edge
+            - MONG_INITDB_DATABASE=edge        
+        volumes:
+            - './edge-db/:/edge-db/'
+            
+    edge-app:
+        depends_on:
+            - edge-db
+        build: ./edge-app
+        image: edge-app
+        container_name: edge-app
+        ports:
+            - 3000:3000 
+        mem_limit: 512mb
+        networks:
+        - proxy-redirect        
+
+    edge-ui:
+        depends_on:
+            - edge-app
+        build: ./edge-ui
+        image: edge-ui
+        container_name: edge-ui
+        mem_limit: 256mb
+        networks:
+        - proxy-redirect
+        ports:
+            - 8080:80
+
+networks:
+  proxy-redirect:
+    external:
+      name: proxy-redirect
